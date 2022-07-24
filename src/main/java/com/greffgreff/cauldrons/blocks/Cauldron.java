@@ -1,4 +1,4 @@
-package com.greffgreff.creepvines.blocks;
+package com.greffgreff.cauldrons.blocks;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;

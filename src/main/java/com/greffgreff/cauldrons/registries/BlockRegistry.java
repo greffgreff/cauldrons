@@ -1,7 +1,7 @@
-package com.greffgreff.creepvines.registries;
+package com.greffgreff.cauldrons.registries;
 
-import com.greffgreff.creepvines.Main;
-import com.greffgreff.creepvines.blocks.Cauldron;
+import com.greffgreff.cauldrons.Main;
+import com.greffgreff.cauldrons.blocks.Cauldron;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;

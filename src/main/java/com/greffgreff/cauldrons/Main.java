@@ -1,7 +1,7 @@
-package com.greffgreff.creepvines;
+package com.greffgreff.cauldrons;
 
-import com.greffgreff.creepvines.registries.BlockRegistry;
-import com.greffgreff.creepvines.registries.ItemRegistry;
+import com.greffgreff.cauldrons.registries.BlockRegistry;
+import com.greffgreff.cauldrons.registries.ItemRegistry;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;

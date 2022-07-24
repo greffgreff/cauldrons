@@ -1,15 +1,12 @@
-package com.greffgreff.creepvines.registries;
+package com.greffgreff.cauldrons.registries;
 
-import com.greffgreff.creepvines.Main;
+import com.greffgreff.cauldrons.Main;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ItemRegistry {
