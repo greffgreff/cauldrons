@@ -1,6 +1,7 @@
 package com.greffgreff.cauldrons.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -25,6 +26,11 @@ public class CauldronBlock extends Block {
         registerDefaultState(getStateDefinition().any()
                 .setValue(FILL_LEVEL, 0)
         );
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return super.getStateForPlacement(context);
     }
 
     @Override
