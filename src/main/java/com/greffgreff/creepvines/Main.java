@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 
 @Mod(Main.MOD_ID)
 public class Main {
-    public static final String MOD_ID = "creepvines";
+    public static final String MOD_ID = "cauldrons";
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Main() {
