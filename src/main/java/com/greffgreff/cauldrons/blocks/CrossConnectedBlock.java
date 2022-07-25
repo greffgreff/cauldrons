@@ -1,7 +1,6 @@
 package com.greffgreff.cauldrons.blocks;
 
 import com.greffgreff.cauldrons.utils.DirectionalProperty;
-import com.greffgreff.cauldrons.utils.EnumBooleanProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,7 +23,7 @@ public abstract class CrossConnectedBlock extends Block {
     public static final DirectionalProperty DOWNWARDS_CONNECTED = DirectionalProperty.DOWN;
     public static final BooleanProperty VERTICALLY_SURROUNDED = BooleanProperty.create("vertically_surrounded");
     public static final BooleanProperty HORIZONTALLY_SURROUNDED = BooleanProperty.create("horizontally_surrounded");
-    public static final BooleanProperty FULLY_SURROUNDED = EnumBooleanProperty.create("fully_surrounded");
+    public static final BooleanProperty FULLY_SURROUNDED = BooleanProperty.create("fully_surrounded");
 
     public CrossConnectedBlock(Properties properties) {
         super(properties);
