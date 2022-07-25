@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "cauldrons:block/cauldron_bottom_side",
+		"particle": "cauldrons:block/cauldron_bottom_side"
+	},
+	"elements": [
+		{
+			"from": [2, 3, 0],
+			"to": [14, 16, 2],
+			"faces": {
+				"north": {"uv": [2, 0, 14, 13], "texture": "#0"},
+				"east": {"uv": [0, 0, 2, 13], "texture": "#0"},
+				"south": {"uv": [2, 0, 14, 13], "texture": "#0"},
+				"west": {"uv": [14, 0, 16, 13], "texture": "#0"},
+				"up": {"uv": [2, 2, 14, 4], "texture": "#0"},
+				"down": {"uv": [2, 2, 14, 4], "texture": "#0"}
+			}
+		}
+	]
+}
