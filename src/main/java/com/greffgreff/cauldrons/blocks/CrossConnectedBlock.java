@@ -64,7 +64,7 @@ public abstract class CrossConnectedBlock extends Block {
                 .setValue(UPWARDS_CONNECTED.get(), joints.contains(Direction.UP))
                 .setValue(DOWNWARDS_CONNECTED.get(), joints.contains(Direction.DOWN))
                 .setValue(VERTICALLY_SURROUNDED, joints.containsAll(Arrays.asList(Direction.DOWN, Direction.UP)))
-                .setValue(VERTICALLY_SURROUNDED, joints.containsAll(Arrays.asList(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)))
+                .setValue(HORIZONTALLY_SURROUNDED, joints.containsAll(Arrays.asList(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)))
                 .setValue(FULLY_SURROUNDED, joints.containsAll(Arrays.asList(Direction.values())));
     }
 
