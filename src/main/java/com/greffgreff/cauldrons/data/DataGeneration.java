@@ -16,8 +16,6 @@ public final class DataGeneration {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper helper = event.getExistingFileHelper();
 
-        Console.debug("event hit");
-
         if (event.includeClient()) {
             generator.addProvider(true, new ModBlockStateProvider(generator, helper));
         }

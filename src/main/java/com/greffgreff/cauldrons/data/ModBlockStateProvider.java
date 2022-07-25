@@ -23,8 +23,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         BlockModelBuilder bottomModel = models().withExistingParent("cauldron_bottom", modLoc("block/cauldron_bottom"));
         MultiPartBlockStateBuilder builder = getMultipartBuilder(BlockRegistry.CAULDRON.get());
 
-        Console.debug("generator hit");
-
         builder
                 .part().modelFile(bottomModel).addModel().condition(CrossConnectedBlock.DOWN_CONNECTED, false).end()
                 .part().modelFile(sideModel).addModel().condition(CrossConnectedBlock.NORTH_CONNECTED, false).end()
