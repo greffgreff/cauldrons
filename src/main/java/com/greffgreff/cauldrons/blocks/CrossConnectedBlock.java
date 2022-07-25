@@ -6,15 +6,13 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,6 +23,8 @@ public abstract class CrossConnectedBlock extends Block {
     public static final BooleanProperty EAST_CONNECTED = BooleanProperty.create("east_connected");
     public static final BooleanProperty UP_CONNECTED = BooleanProperty.create("up_connected");
     public static final BooleanProperty DOWN_CONNECTED = BooleanProperty.create("down_connected");
+    public static final BooleanProperty VERTICALLY_FULLY_CONNECTED = BooleanProperty.create("vertically_fully_connected");
+    public static final BooleanProperty HORIZONTALLY_FULLY_CONNECTED = BooleanProperty.create("horizontally_fully_connected");
 
     public CrossConnectedBlock(Properties properties) {
         super(properties);
@@ -34,6 +34,8 @@ public abstract class CrossConnectedBlock extends Block {
                 .setValue(EAST_CONNECTED, false)
                 .setValue(WEST_CONNECTED, false)
                 .setValue(NORTH_CONNECTED, false)
+                .setValue(VERTICALLY_FULLY_CONNECTED, false)
+                .setValue(HORIZONTALLY_FULLY_CONNECTED, false)
         );
     }
 
@@ -59,7 +61,9 @@ public abstract class CrossConnectedBlock extends Block {
                 .setValue(WEST_CONNECTED, joints.contains(Direction.WEST))
                 .setValue(NORTH_CONNECTED, joints.contains(Direction.NORTH))
                 .setValue(UP_CONNECTED, joints.contains(Direction.UP))
-                .setValue(DOWN_CONNECTED, joints.contains(Direction.DOWN));
+                .setValue(DOWN_CONNECTED, joints.contains(Direction.DOWN))
+                .setValue(VERTICALLY_FULLY_CONNECTED, joints.containsAll(Arrays.asList(Direction.DOWN, Direction.UP)))
+                .setValue(VERTICALLY_FULLY_CONNECTED, joints.containsAll(Arrays.asList(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST)));
     }
 
     @Override
@@ -76,7 +80,7 @@ public abstract class CrossConnectedBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(SOUTH_CONNECTED, EAST_CONNECTED, WEST_CONNECTED, NORTH_CONNECTED, UP_CONNECTED, DOWN_CONNECTED);
+        builder.add(SOUTH_CONNECTED, EAST_CONNECTED, WEST_CONNECTED, NORTH_CONNECTED, UP_CONNECTED, DOWN_CONNECTED, VERTICALLY_FULLY_CONNECTED, HORIZONTALLY_FULLY_CONNECTED);
     }
 
 //    public abstract <T extends CrossConnectedBlock> T getBlockToCheck();
