@@ -28,7 +28,7 @@ public enum DirectionalProperty {
         this.relativeXRotation = relativeXRotation;
     }
 
-    public DirectionalProperty[] getHorizontalsProperties() {
+    public static DirectionalProperty[] getHorizontalsProperties() {
         return Stream.of(NORTH, SOUTH, EAST, WEST).toArray(DirectionalProperty[]::new);
     }
 

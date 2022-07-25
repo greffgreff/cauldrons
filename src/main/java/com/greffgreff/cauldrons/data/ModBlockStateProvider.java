@@ -30,7 +30,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .   condition(CrossConnectedBlock.DOWNWARDS_CONNECTED.get(), false)
                 .end();
 
-        for (DirectionalProperty property: DirectionalProperty.values()) {
+        for (DirectionalProperty property: DirectionalProperty.getHorizontalsProperties()) {
             Console.debug(property);
             Console.debug(property.get());
             Console.debug(property.getAdjacentSides());
