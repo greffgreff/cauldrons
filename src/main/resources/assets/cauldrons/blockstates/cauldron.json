@@ -1,7 +1,47 @@
 {
-  "variants": {
-    "": {
-      "model": "cauldrons:block/cauldron"
+  "multipart": [
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom"
+      },
+      "when": {
+        "down_connected": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_side"
+      },
+      "when": {
+        "north_connected": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_side",
+        "y": 90
+      },
+      "when": {
+        "east_connected": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_side",
+        "y": 180
+      },
+      "when": {
+        "south_connected": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_side",
+        "y": 270
+      },
+      "when": {
+        "west_connected": "false"
+      }
     }
-  }
+  ]
 }
