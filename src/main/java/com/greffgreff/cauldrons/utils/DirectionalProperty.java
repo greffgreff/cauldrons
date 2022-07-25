@@ -4,7 +4,9 @@ import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public enum DirectionalProperty {
     NORTH(Direction.NORTH, BooleanProperty.create("northwards_connected"), 0, 0),
@@ -24,6 +26,14 @@ public enum DirectionalProperty {
         this.property = property;
         this.relativeYRotation = relativeYRotation;
         this.relativeXRotation = relativeXRotation;
+    }
+
+    public DirectionalProperty[] getHorizontalsProperties() {
+        return Stream.of(NORTH, SOUTH, EAST, WEST).toArray(DirectionalProperty[]::new);
+    }
+
+    public DirectionalProperty[] getVerticalProperties() {
+        return Stream.of(UP, DOWN).toArray(DirectionalProperty[]::new);
     }
 
     public Direction getDirection() {
