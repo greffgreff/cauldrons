@@ -7,19 +7,23 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import java.util.Arrays;
 
 public enum DirectionalProperty {
-    NORTH(Direction.NORTH, BooleanProperty.create("northwards_connected")),
-    EAST(Direction.EAST, BooleanProperty.create("eastwards_connected")),
-    SOUTH(Direction.SOUTH, BooleanProperty.create("southwards_connected")),
-    WEST(Direction.WEST, BooleanProperty.create("westwards_connected")),
-    UP(Direction.UP, BooleanProperty.create("upwards_connected")),
-    DOWN(Direction.DOWN, BooleanProperty.create("downwards_connected"));
+    NORTH(Direction.NORTH, BooleanProperty.create("northwards_connected"), 0, 0),
+    SOUTH(Direction.SOUTH, BooleanProperty.create("southwards_connected"), 180, 0),
+    EAST(Direction.EAST, BooleanProperty.create("eastwards_connected"), 90, 0),
+    WEST(Direction.WEST, BooleanProperty.create("westwards_connected"), 270, 0),
+    UP(Direction.UP, BooleanProperty.create("upwards_connected"), 0, 0),
+    DOWN(Direction.DOWN, BooleanProperty.create("downwards_connected"), 0, 180);
 
     private final Direction direction;
     private final BooleanProperty property;
+    private final int relativeYRotation;
+    private final int relativeXRotation;
 
-    DirectionalProperty(Direction direction, BooleanProperty property) {
+    DirectionalProperty(Direction direction, BooleanProperty property, int relativeYRotation, int relativeXRotation) {
         this.direction = direction;
         this.property = property;
+        this.relativeYRotation = relativeYRotation;
+        this.relativeXRotation = relativeXRotation;
     }
 
     public Direction getDirection() {
@@ -28,6 +32,14 @@ public enum DirectionalProperty {
 
     public BooleanProperty get() {
         return property;
+    }
+
+    public int getRelativeYRotation() {
+        return relativeYRotation;
+    }
+
+    public int getRelativeXRotation() {
+        return relativeXRotation;
     }
 
     public DirectionalProperty getOpposite() {
@@ -41,11 +53,11 @@ public enum DirectionalProperty {
         };
     }
 
-    public Pair<DirectionalProperty, DirectionalProperty> getAdjacent() {
+    public Pair<DirectionalProperty, DirectionalProperty> getAdjacentSides() {
         return switch (this) {
             case DOWN, UP -> Pair.of(null, null);
             case NORTH -> Pair.of(WEST, EAST);
-            case SOUTH -> Pair.of(SOUTH, WEST);
+            case SOUTH -> Pair.of(EAST, WEST);
             case WEST -> Pair.of(SOUTH, NORTH);
             case EAST -> Pair.of(NORTH, SOUTH);
         };
