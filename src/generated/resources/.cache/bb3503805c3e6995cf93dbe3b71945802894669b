@@ -1,0 +1,4 @@
+// 1.19	2022-07-25T05:28:12.3344393	Block States: cauldrons
+26fe60ca38c53fc28120ad020b7419665a1e6d24 assets/cauldrons/blockstates/cauldron.json
+d6a3485eb2af79185d50f93ee14f1ec0b9474a48 assets/cauldrons/models/block/cauldron_bottom.json
+6390ccffb762a2c9af9eb27c67cdc0f2398ffd7b assets/cauldrons/models/block/cauldron_side.json
