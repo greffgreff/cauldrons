@@ -3,6 +3,8 @@ package com.greffgreff.cauldrons.data;
 import com.greffgreff.cauldrons.Main;
 import com.greffgreff.cauldrons.blocks.CrossConnectedBlock;
 import com.greffgreff.cauldrons.registries.BlockRegistry;
+import com.greffgreff.cauldrons.utils.Console;
+import com.greffgreff.cauldrons.utils.DirectionalProperty;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -26,45 +28,27 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .part() // down connected, add bottom
                 .   modelFile(bottomModel).addModel()
                 .   condition(CrossConnectedBlock.DOWNWARDS_CONNECTED.get(), false)
-                .end().part() // north none connected, add side
-                .   modelFile(sideModel).addModel()
-                .   condition(CrossConnectedBlock.NORTHWARDS_CONNECTED.get(), false)
-                .end().part() // north connected, add angle left
-                .   modelFile(angleModel).rotationY(90).addModel()
-                .   condition(CrossConnectedBlock.NORTHWARDS_CONNECTED.get(), true)
-                .   condition(CrossConnectedBlock.EASTWARDS_CONNECTED.get(), false)
-                .end().part() // north connected, add angle right
-                .   modelFile(angleModel).addModel()
-                .   condition(CrossConnectedBlock.NORTHWARDS_CONNECTED.get(), true)
-                .   condition(CrossConnectedBlock.WESTWARDS_CONNECTED.get(), false)
-                .end().part() // south none connected, add side
-                . modelFile(sideModel).rotationY(180).addModel()
-                .   condition(CrossConnectedBlock.SOUTHWARDS_CONNECTED.get(), false)
-//                .end().part() // south connected, add angle left
-//                .   modelFile(angleModel).rotationY(180+90).addModel()
-//                .   condition(CrossConnectedBlock.SOUTH_CONNECTED, true)
-//                .end().part() // south connected, add angle right
-//                .   modelFile(angleModel).rotationY(180).addModel()
-//                .   condition(CrossConnectedBlock.SOUTH_CONNECTED, true)
-                .end().part() // east none connected, add side
-                .   modelFile(sideModel).rotationY(90).addModel()
-                .   condition(CrossConnectedBlock.EASTWARDS_CONNECTED.get(), false)
-//                .end().part() // east connected, add angle left
-//                .   modelFile(angleModel).rotationY(90+90).addModel()
-//                .   condition(CrossConnectedBlock.EAST_CONNECTED, true)
-//                .end().part() // east connected, add angle right
-//                .   modelFile(angleModel).rotationY(90).addModel()
-//                .   condition(CrossConnectedBlock.EAST_CONNECTED, true)
-                .end().part() // west none connected, add side
-                .   modelFile(sideModel).rotationY(270).addModel()
-                .   condition(CrossConnectedBlock.WESTWARDS_CONNECTED.get(), false)
-//                .end().part() // west connected, add angle left
-//                .   modelFile(angleModel).rotationY(270+90).addModel()
-//                .   condition(CrossConnectedBlock.WEST_CONNECTED, true)
-//                .end().part() // west connected, add angle right
-//                .   modelFile(angleModel).rotationY(270).addModel()
-//                .   condition(CrossConnectedBlock.WEST_CONNECTED, true)
                 .end();
+
+        for (DirectionalProperty property: DirectionalProperty.values()) {
+            Console.debug(property);
+            Console.debug(property.get());
+            Console.debug(property.getAdjacentSides());
+
+            builder
+                    .part()
+                    .   modelFile(sideModel).rotationY(property.getRelativeYRotation()).addModel()
+                    .   condition(property.get(), false)
+                    .end().part()
+                    .   modelFile(angleModel).rotationY(property.getRelativeYRotation()+90).addModel()
+                    .   condition(property.get(), true)
+                    .   condition(property.getAdjacentSides().right().get(), false)
+                    .end().part()
+                    .   modelFile(angleModel).rotationY(property.getRelativeYRotation()).addModel()
+                    .   condition(property.get(), true)
+                    .   condition(property.getAdjacentSides().left().get(), false)
+                    .end();
+        }
     }
 
     private BlockModelBuilder getModel(String name, String texture) {
