@@ -2,6 +2,7 @@ package com.greffgreff.cauldrons.registries;
 
 import com.greffgreff.cauldrons.Main;
 import com.greffgreff.cauldrons.blocks.CauldronBlock;
+import com.greffgreff.cauldrons.blocks.ConnectedBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -16,7 +17,8 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Main.MOD_ID);
     public static final DeferredRegister<Block> GAME_BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "minecarft");
 
-    public static final RegistryObject<Block> CAULDRON = registerBlock("cauldron", CauldronBlock::new);
+//    public static final RegistryObject<Block> CAULDRON = registerBlock("cauldron", CauldronBlock::new);
+    public static final RegistryObject<Block> CONNECTED_BLOCK = registerBlock("connected_block", ConnectedBlock::new);
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
