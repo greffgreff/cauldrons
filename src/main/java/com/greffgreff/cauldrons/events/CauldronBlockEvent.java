@@ -15,24 +15,4 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class CauldronBlockEvent {
 
-//    @SubscribeEvent
-//    public static void onBlockPlaceEvent(BlockEvent.EntityPlaceEvent event) {
-//        if (event.getPlacedBlock().getBlock() instanceof CauldronBlock) {
-//            BlockState blockState = event.getPlacedBlock();
-//            blockState.setValue(CauldronBlock.FILL_LEVEL, 1);
-//            Console.debug(blockState);
-//        }
-//    }
-
-    @SubscribeEvent
-    public static void onPlayerInteractEvent(PlayerInteractEvent event) {
-        BlockState blockState = event.getLevel().getBlockState(event.getPos());
-        ItemStack itemStack = event.getItemStack();
-
-        if (blockState.getBlock() instanceof CauldronBlock && itemStack.getItem() instanceof BucketItem bucket) {
-            blockState.setValue(CauldronBlock.FILL_LEVEL, 1);
-
-            Console.debug(blockState);
-        }
-    }
 }
