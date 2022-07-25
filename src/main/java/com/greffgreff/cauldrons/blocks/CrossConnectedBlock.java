@@ -6,6 +6,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CrossConnectedBlock extends Block {
+public abstract class CrossConnectedBlock extends Block {
     public static final BooleanProperty NORTH_CONNECTED = BooleanProperty.create("north_connected");
     public static final BooleanProperty SOUTH_CONNECTED = BooleanProperty.create("south_connected");
     public static final BooleanProperty WEST_CONNECTED = BooleanProperty.create("west_connected");
@@ -25,8 +26,8 @@ public class CrossConnectedBlock extends Block {
     public static final BooleanProperty UP_CONNECTED = BooleanProperty.create("up_connected");
     public static final BooleanProperty DOWN_CONNECTED = BooleanProperty.create("down_connected");
 
-    public CrossConnectedBlock() {
-        super(BlockBehaviour.Properties.of(Material.STONE));
+    public CrossConnectedBlock(Properties properties) {
+        super(properties);
 
         registerDefaultState(stateDefinition.any()
                 .setValue(SOUTH_CONNECTED, false)
@@ -77,6 +78,8 @@ public class CrossConnectedBlock extends Block {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SOUTH_CONNECTED, EAST_CONNECTED, WEST_CONNECTED, NORTH_CONNECTED, UP_CONNECTED, DOWN_CONNECTED);
     }
+
+//    public abstract <T extends CrossConnectedBlock> T getBlockToCheck();
 
     public static BooleanProperty getPropertyFromDirection(Direction direction) {
         return switch (direction) {
