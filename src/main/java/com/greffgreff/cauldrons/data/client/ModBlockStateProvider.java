@@ -1,11 +1,12 @@
-package com.greffgreff.cauldrons.data;
+package com.greffgreff.cauldrons.data.client;
 
 import com.greffgreff.cauldrons.Main;
 import com.greffgreff.cauldrons.blocks.CrossConnectedBlock;
 import com.greffgreff.cauldrons.registries.BlockRegistry;
-import com.greffgreff.cauldrons.utils.Console;
-import com.greffgreff.cauldrons.utils.DirectionalProperty;
+import it.unimi.dsi.fastutil.Pair;
+import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
@@ -19,6 +20,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        handleCauldronBlockStates();
+    }
+
+    private void handleCauldronBlockStates() {
         BlockModelBuilder sideModel = getModel("cauldron_bottom_side", "block/cauldron_bottom_side");
         BlockModelBuilder angleModel = getModel("cauldron_bottom_column", "block/cauldron_bottom_column");
         BlockModelBuilder bottomModel = getModel("cauldron_bottom", "block/cauldron_bottom");
@@ -27,20 +32,26 @@ public class ModBlockStateProvider extends BlockStateProvider {
         builder
                 .part() // down connected, add bottom
                 .   modelFile(bottomModel).addModel()
-                .   condition(CrossConnectedBlock.DOWNWARDS_CONNECTED.get(), false)
+                .   condition(CrossConnectedBlock.DOWNWARDS_CONNECTED, false)
                 .end();
 
-        for (DirectionalProperty property: DirectionalProperty.getHorizontalsProperties()) {
+        for (Direction direction: CrossConnectedBlock.getHorizontalsProperties()) {
+            int relativeYRotation = direction.get2DDataValue() * 90;
+            Pair<Direction, Direction> adjacentSides = CrossConnectedBlock.getAdjacentSidesByDirection(direction);
+            BooleanProperty property = CrossConnectedBlock.getPropertyFromDirection(direction);
+            BooleanProperty leftProperty = CrossConnectedBlock.getPropertyFromDirection(adjacentSides.left());
+            BooleanProperty rightProperty = CrossConnectedBlock.getPropertyFromDirection(adjacentSides.right());
+
             builder
                     .part() // apply side if not connected
-                    .   modelFile(sideModel).rotationY(property.getRelativeYRotation()).addModel()
-                    .   condition(property.get(), false)
+                    .   modelFile(sideModel).rotationY(relativeYRotation).addModel()
+                    .   condition(property, false)
                     .end().part() // apply angle if adjacent left side is not connected
-                    .   modelFile(angleModel).rotationY(property.getRelativeYRotation()+90).addModel()
-                    .   condition(property.getAdjacentSides().right().get(), false)
+                    .   modelFile(angleModel).rotationY(relativeYRotation+90).addModel()
+                    .   condition(rightProperty, false)
                     .end().part() // apply angle if adjacent right side is not connected
-                    .   modelFile(angleModel).rotationY(property.getRelativeYRotation()).addModel()
-                    .   condition(property.getAdjacentSides().left().get(), false)
+                    .   modelFile(angleModel).rotationY(relativeYRotation).addModel()
+                    .   condition(leftProperty, false)
                     .end();
         }
     }

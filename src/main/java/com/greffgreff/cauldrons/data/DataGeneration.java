@@ -1,7 +1,7 @@
 package com.greffgreff.cauldrons.data;
 
 import com.greffgreff.cauldrons.Main;
-import com.greffgreff.cauldrons.utils.Console;
+import com.greffgreff.cauldrons.data.client.ModBlockStateProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
