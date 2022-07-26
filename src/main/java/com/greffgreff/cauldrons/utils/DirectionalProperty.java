@@ -4,7 +4,6 @@ import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -63,14 +62,18 @@ public enum DirectionalProperty {
         };
     }
 
-    public Pair<DirectionalProperty, DirectionalProperty> getAdjacentSides() {
-        return switch (this) {
+    public static Pair<DirectionalProperty, DirectionalProperty> getAdjacentSidesByDirection(Direction direction) {
+        return switch (direction) {
             case DOWN, UP -> Pair.of(null, null);
             case NORTH -> Pair.of(WEST, EAST);
             case SOUTH -> Pair.of(EAST, WEST);
             case WEST -> Pair.of(SOUTH, NORTH);
             case EAST -> Pair.of(NORTH, SOUTH);
         };
+    }
+
+    public Pair<DirectionalProperty, DirectionalProperty> getAdjacentSides() {
+        return getAdjacentSidesByDirection(this.getDirection());
     }
 
     public static DirectionalProperty getFromDirection(Direction direction) {
