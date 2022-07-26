@@ -8,10 +8,11 @@ import java.util.Arrays;
 public final class DirectionalUtil {
 
     public static int getRelativeRotation(Direction direction) {
-        return (direction.get2DDataValue()) * 90;
+        int rotationalOffset = 2; // flips the rotation by 180 deg
+        return (direction.get2DDataValue() - rotationalOffset) * 90;
     }
 
-    public static Pair<Direction, Direction> getAdjacentSidesByDirection(Direction direction) {
+    public static Pair<Direction, Direction> getAdjacentSides(Direction direction) {
         return switch (direction) {
             case DOWN, UP -> Pair.of(null, null);
             case NORTH -> Pair.of(Direction.WEST, Direction.EAST);
@@ -28,5 +29,4 @@ public final class DirectionalUtil {
     public static Direction[] getVerticalDirections() {
         return Arrays.stream(Direction.values()).filter(d -> d == Direction.DOWN || d == Direction.UP).toArray(Direction[]::new);
     }
-
 }
