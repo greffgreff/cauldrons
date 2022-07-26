@@ -5,34 +5,34 @@
         "model": "cauldrons:block/cauldron_bottom"
       },
       "when": {
-        "downwards_connected": "false"
+        "down": "false"
       }
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_side"
+        "model": "cauldrons:block/cauldron_bottom_side",
+        "y": 360
       },
       "when": {
-        "northwards_connected": "false"
+        "north": "false"
       }
     },
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_column",
-        "y": 90
+        "y": 450
       },
       "when": {
-        "eastwards_connected": "false",
-        "northwards_connected": "true"
+        "east": "true"
       }
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column"
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 360
       },
       "when": {
-        "northwards_connected": "true",
-        "westwards_connected": "false"
+        "west": "false"
       }
     },
     {
@@ -41,16 +41,25 @@
         "y": 180
       },
       "when": {
-        "southwards_connected": "false"
+        "south": "false"
       }
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_side",
-        "y": 90
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 270
       },
       "when": {
-        "eastwards_connected": "false"
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 180
+      },
+      "when": {
+        "east": "false"
       }
     },
     {
@@ -59,7 +68,52 @@
         "y": 270
       },
       "when": {
-        "westwards_connected": "false"
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 360
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 270
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_side",
+        "y": 450
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 540
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 450
+      },
+      "when": {
+        "north": "false"
       }
     }
   ]

@@ -3,6 +3,7 @@ package com.greffgreff.cauldrons.data.client;
 import com.greffgreff.cauldrons.Main;
 import com.greffgreff.cauldrons.blocks.CrossConnectedBlock;
 import com.greffgreff.cauldrons.registries.BlockRegistry;
+import com.greffgreff.cauldrons.utils.DirectionalUtil;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
@@ -35,23 +36,25 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .   condition(CrossConnectedBlock.DOWNWARDS_CONNECTED, false)
                 .end();
 
-        for (Direction direction: CrossConnectedBlock.getHorizontalsProperties()) {
-            int relativeYRotation = direction.get2DDataValue() * 90;
-            Pair<Direction, Direction> adjacentSides = CrossConnectedBlock.getAdjacentSidesByDirection(direction);
-            BooleanProperty property = CrossConnectedBlock.getPropertyFromDirection(direction);
-            BooleanProperty leftProperty = CrossConnectedBlock.getPropertyFromDirection(adjacentSides.left());
-            BooleanProperty rightProperty = CrossConnectedBlock.getPropertyFromDirection(adjacentSides.right());
+        for (Direction direction: DirectionalUtil.getHorizontalDirections()) {
+            Pair<Direction, Direction> adjacentSides = DirectionalUtil.getAdjacentSidesByDirection(direction);
+            BooleanProperty side = CrossConnectedBlock.getPropertyFromDirection(direction);
+            BooleanProperty leftSide = CrossConnectedBlock.getPropertyFromDirection(adjacentSides.left());
+            BooleanProperty rightSide = CrossConnectedBlock.getPropertyFromDirection(adjacentSides.right());
+            int sideRot = DirectionalUtil.getRelativeRotation(direction);
+            int leftSideRot = DirectionalUtil.getRelativeRotation(adjacentSides.left());
+            int rightSideRot = DirectionalUtil.getRelativeRotation(adjacentSides.right());
 
             builder
                     .part() // apply side if not connected
-                    .   modelFile(sideModel).rotationY(relativeYRotation).addModel()
-                    .   condition(property, false)
+                    .   modelFile(sideModel).rotationY(sideRot).addModel()
+                    .   condition(side, false)
                     .end().part() // apply angle if adjacent left side is not connected
-                    .   modelFile(angleModel).rotationY(relativeYRotation+90).addModel()
-                    .   condition(rightProperty, false)
+                    .   modelFile(angleModel).rotationY(rightSideRot).addModel()
+                    .   condition(rightSide, true)
                     .end().part() // apply angle if adjacent right side is not connected
-                    .   modelFile(angleModel).rotationY(relativeYRotation).addModel()
-                    .   condition(leftProperty, false)
+                    .   modelFile(angleModel).rotationY(leftSideRot).addModel()
+                    .   condition(leftSide, false)
                     .end();
         }
     }
