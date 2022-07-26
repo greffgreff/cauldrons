@@ -3,7 +3,7 @@ package com.greffgreff.cauldrons.utils;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public enum JointProperty {
+public enum AngleProperty {
     NORTH_EAST(Direction.NORTH, Direction.EAST, BooleanProperty.create("north_east_angled")),
     NORTH_WEST(Direction.NORTH, Direction.WEST, BooleanProperty.create("north_west_angled")),
     NORTH_UP(Direction.NORTH, Direction.UP, BooleanProperty.create("north_up_angled")),
@@ -21,7 +21,7 @@ public enum JointProperty {
     private final Direction secondDirection;
     private final BooleanProperty property;
 
-    JointProperty(Direction firstDirection, Direction secondDirection, BooleanProperty property) {
+    AngleProperty(Direction firstDirection, Direction secondDirection, BooleanProperty property) {
         this.firstDirection = firstDirection;
         this.secondDirection = secondDirection;
         this.property = property;
