@@ -31,21 +31,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .end();
 
         for (DirectionalProperty property: DirectionalProperty.getHorizontalsProperties()) {
-            Console.debug(property);
-            Console.debug(property.get());
-            Console.debug(property.getAdjacentSides());
-
             builder
-                    .part()
+                    .part() // apply side if not connected
                     .   modelFile(sideModel).rotationY(property.getRelativeYRotation()).addModel()
                     .   condition(property.get(), false)
-                    .end().part()
+                    .end().part() // apply angle if adjacent left side is not connected
                     .   modelFile(angleModel).rotationY(property.getRelativeYRotation()+90).addModel()
-                    .   condition(property.get(), true)
                     .   condition(property.getAdjacentSides().right().get(), false)
-                    .end().part()
+                    .end().part() // apply angle if adjacent right side is not connected
                     .   modelFile(angleModel).rotationY(property.getRelativeYRotation()).addModel()
-                    .   condition(property.get(), true)
                     .   condition(property.getAdjacentSides().left().get(), false)
                     .end();
         }
