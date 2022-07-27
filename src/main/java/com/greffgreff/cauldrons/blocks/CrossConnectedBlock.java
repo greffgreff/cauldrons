@@ -1,6 +1,5 @@
 package com.greffgreff.cauldrons.blocks;
 
-import com.greffgreff.cauldrons.utils.Console;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -49,15 +48,14 @@ public abstract class CrossConnectedBlock extends Block {
         Level level = context.getLevel();
         BlockPos targetPos = context.getClickedPos();
         BlockState blockState = Objects.requireNonNull(super.getStateForPlacement(context));
-
-        for (Direction direction : Direction.values()) {
-            blockState = updateWithAdjacentPair(blockState, targetPos, direction, level);
-
-            if (direction != Direction.UP && direction != Direction.DOWN) {
-                blockState = updateWithDiagonalPair(blockState, targetPos, direction, level);
+        if (context.canPlace()) {
+            for (Direction direction : Direction.values()) {
+                blockState = updateWithAdjacentPair(blockState, targetPos, direction, level);
+                if (direction != Direction.UP && direction != Direction.DOWN) {
+                    blockState = updateWithDiagonalPair(blockState, targetPos, direction, level);
+                }
             }
         }
-
         return blockState;
     }
 
@@ -65,7 +63,6 @@ public abstract class CrossConnectedBlock extends Block {
     public void destroy(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         for (Direction direction : Direction.values()) {
             blockState = updateWithAdjacentPair(blockState, blockPos, direction, level);
-
             if (direction != Direction.UP && direction != Direction.DOWN) {
                 blockState = updateWithDiagonalPair(blockState, blockPos, direction, level);
             }
