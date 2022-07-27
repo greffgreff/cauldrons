@@ -1,7 +1,6 @@
 package com.greffgreff.cauldrons.blocks;
 
 import com.greffgreff.cauldrons.utils.DirectionalUtil;
-import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -9,10 +8,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -20,9 +17,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.greffgreff.cauldrons.utils.DirectionalUtil.getAdjacentSides;
-import static com.greffgreff.cauldrons.utils.DirectionalUtil.getRelativeRotation;
 
 @SuppressWarnings({"NullableProblems", "ConstantConditions"})
 public class CauldronBlock extends CrossConnectedBlock {
@@ -49,11 +43,10 @@ public class CauldronBlock extends CrossConnectedBlock {
             for (Direction direction : DirectionalUtil.getHorizontalDirections()) {
                 if (!state.getValue(getProperty(direction))) {
                     shape = Shapes.join(shape, getSideByDirection(direction), BooleanOp.OR);
-                    // FIXME - fix angle hit box
-                    if (!state.getValue(getAngleProperty(direction, direction.getClockWise()))) {
-                        shape = Shapes.join(shape, getAngleByDirection(direction), BooleanOp.OR);
-                    }
-                    if (!state.getValue(getAngleProperty(direction, direction.getClockWise()))) {
+                    shape = Shapes.join(shape, getAngleByDirection(direction), BooleanOp.OR);
+                    shape = Shapes.join(shape, getAngleByDirection(direction.getClockWise()), BooleanOp.OR);
+                } else {
+                    if (state.getValue(getProperty(direction.getClockWise())) && !state.getValue(getAngleProperty(direction, direction.getClockWise()))) {
                         shape = Shapes.join(shape, getAngleByDirection(direction.getClockWise()), BooleanOp.OR);
                     }
                 }
