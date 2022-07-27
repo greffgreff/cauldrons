@@ -1,7 +1,6 @@
 package com.greffgreff.cauldrons.blocks;
 
 import com.greffgreff.cauldrons.utils.Console;
-import com.greffgreff.cauldrons.utils.DirectionalUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -52,26 +51,10 @@ public abstract class CrossConnectedBlock extends Block {
         BlockState blockState = Objects.requireNonNull(super.getStateForPlacement(context));
 
         for (Direction direction : Direction.values()) {
-            BlockPos adjacentPos = targetPos.relative(direction);
-            BlockState adjacentBlockState = level.getBlockState(adjacentPos);
+            blockState = updateWithAdjacentPair(blockState, targetPos, direction, level);
 
-            // handling adjacent block
-            if (adjacentBlockState.getBlock() instanceof CrossConnectedBlock) {
-                blockState = blockState.setValue(getPropertyFromDirection(direction), true);
-                BooleanProperty property = getPropertyFromDirection(direction.getOpposite());
-                level.setBlock(adjacentPos, adjacentBlockState.setValue(property, true), 3);
-            }
-
-            // handling diagonal block
             if (direction != Direction.UP && direction != Direction.DOWN) {
-                BlockPos diagonalPos = adjacentPos.relative(direction.getClockWise());
-                BlockState diagonalBlockState = level.getBlockState(diagonalPos);
-
-                if (diagonalBlockState.getBlock() instanceof CrossConnectedBlock) {
-                    blockState = blockState.setValue(getAnglePropertyFromDirections(direction, direction.getClockWise()), true);
-                    BooleanProperty property = getAnglePropertyFromDirections(direction.getOpposite(), direction.getOpposite().getClockWise());
-                    level.setBlock(diagonalPos, diagonalBlockState.setValue(property, true), 3);
-                }
+                blockState = updateWithDiagonalPair(blockState, targetPos, direction, level);
             }
         }
 
@@ -80,14 +63,42 @@ public abstract class CrossConnectedBlock extends Block {
 
     @Override
     public void destroy(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-//        for (Direction direction : Direction.values()) {
-//            BlockPos adjacentPos = blockPos.relative(direction);
-//            BlockState adjacentBlockState = level.getBlockState(adjacentPos);
-//            if (!(adjacentBlockState.getBlock() instanceof CrossConnectedBlock)) continue;
-//
-//            BooleanProperty property = getPropertyFromDirection(direction.getOpposite());
-//            level.setBlock(adjacentPos, adjacentBlockState.setValue(property, false), 3);
-//        }
+        for (Direction direction : Direction.values()) {
+            blockState = updateWithAdjacentPair(blockState, blockPos, direction, level);
+
+            if (direction != Direction.UP && direction != Direction.DOWN) {
+                blockState = updateWithDiagonalPair(blockState, blockPos, direction, level);
+            }
+        }
+    }
+
+    private static BlockState updateWithAdjacentPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level) {
+        BlockPos adjacentPos = targetPos.relative(direction);
+        BlockState adjacentBlockState = level.getBlockState(adjacentPos);
+        if (adjacentBlockState.getBlock() instanceof CrossConnectedBlock) {
+            BooleanProperty property = getPropertyFromDirection(direction);
+            BooleanProperty otherProperty = getOppositeProperty(property);
+            blockState = blockState.setValue(property, true);
+            level.setBlock(adjacentPos, adjacentBlockState.setValue(otherProperty, true), 3);
+        }
+        return blockState;
+    }
+
+    private static BlockState updateWithDiagonalPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level) {
+        BlockPos adjacentPos = targetPos.relative(direction);
+        Direction diagonalDirection = direction.getClockWise();
+        BlockPos diagonalPos = adjacentPos.relative(diagonalDirection);
+        BlockState diagonalBlockState = level.getBlockState(diagonalPos);
+        if (diagonalBlockState.getBlock() instanceof CrossConnectedBlock) {
+            BooleanProperty property = getAnglePropertyFromDirections(direction, diagonalDirection);
+            BooleanProperty otherProperty = getOppositeProperty(property);
+            Console.debug("Directions " + direction + " " + diagonalDirection);
+            Console.debug("Property " + property);
+
+            blockState = blockState.setValue(property, true);
+            level.setBlock(diagonalPos, diagonalBlockState.setValue(otherProperty, true), 3);
+        }
+        return blockState;
     }
 
     @Override
@@ -107,14 +118,40 @@ public abstract class CrossConnectedBlock extends Block {
     }
 
     public static BooleanProperty getAnglePropertyFromDirections(Direction direction1, Direction direction2) {
-        if ((direction1 == Direction.NORTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.NORTH)) {
+        List<Direction> directions = Arrays.asList(direction1, direction2);
+        if (directions.contains(Direction.NORTH) && directions.contains(Direction.EAST)) {
             return NORTH_EAST;
-        } else if ((direction1 == Direction.NORTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.EAST)) {
+        } else if (directions.contains(Direction.NORTH) && directions.contains(Direction.WEST)) {
             return NORTH_WEST;
-        } else if ((direction1 == Direction.SOUTH && direction2 == Direction.EAST) || (direction1 == Direction.NORTH && direction2 == Direction.SOUTH)) {
+        } else if (directions.contains(Direction.SOUTH) && directions.contains(Direction.EAST)) {
             return SOUTH_EAST;
-        } else if ((direction1 == Direction.SOUTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.SOUTH)) {
+        } else if (directions.contains(Direction.SOUTH) && directions.contains(Direction.WEST)) {
             return SOUTH_WEST;
+        }
+        return null;
+    }
+
+    public static BooleanProperty getOppositeProperty(BooleanProperty property) {
+        if (property == CrossConnectedBlock.DOWN) {
+            return CrossConnectedBlock.UP;
+        } else if (property == CrossConnectedBlock.UP) {
+            return CrossConnectedBlock.DOWN;
+        } else if (property == CrossConnectedBlock.EAST) {
+            return CrossConnectedBlock.WEST;
+        } else if (property == CrossConnectedBlock.WEST) {
+            return CrossConnectedBlock.EAST;
+        } else if (property == CrossConnectedBlock.SOUTH) {
+            return CrossConnectedBlock.NORTH;
+        } else if (property == CrossConnectedBlock.NORTH) {
+            return CrossConnectedBlock.SOUTH;
+        } else if (property == CrossConnectedBlock.NORTH_EAST) {
+            return CrossConnectedBlock.SOUTH_WEST;
+        } else if (property == CrossConnectedBlock.SOUTH_EAST) {
+            return CrossConnectedBlock.NORTH_WEST;
+        } else if (property == CrossConnectedBlock.NORTH_WEST) {
+            return CrossConnectedBlock.SOUTH_EAST;
+        } else if (property == CrossConnectedBlock.SOUTH_WEST) {
+            return CrossConnectedBlock.NORTH_EAST;
         }
         return null;
     }
