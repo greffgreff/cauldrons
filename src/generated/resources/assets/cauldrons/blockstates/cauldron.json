@@ -1,0 +1,203 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_side"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "north": "true",
+        "north_east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column"
+      },
+      "when": {
+        "north": "true",
+        "north_west": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 90
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_side",
+        "y": -180
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": -90
+      },
+      "when": {
+        "south": "true",
+        "south_west": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 180
+      },
+      "when": {
+        "east": "true",
+        "south": "true",
+        "south_east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": -90
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 180
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_side",
+        "y": -90
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column"
+      },
+      "when": {
+        "north": "true",
+        "north_west": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": -90
+      },
+      "when": {
+        "south": "true",
+        "south_west": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column"
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": -90
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_side",
+        "y": 90
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": -180
+      },
+      "when": {
+        "east": "true",
+        "south": "true",
+        "south_east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "north": "true",
+        "north_east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": -180
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "cauldrons:block/cauldron_bottom_column",
+        "y": 90
+      },
+      "when": {
+        "east": "false"
+      }
+    }
+  ]
+}
