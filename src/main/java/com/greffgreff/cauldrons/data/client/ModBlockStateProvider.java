@@ -30,12 +30,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private void handleCauldronBlockStates() {
         BlockModelBuilder sideModel = getModel("cauldron_bottom_side", "block/cauldron_bottom_side");
-        BlockModelBuilder angleModel = getModel("cauldron_bottom_column", "block/cauldron_bottom_column");
+        BlockModelBuilder angleModel = getModel("cauldron_bottom_angle", "block/cauldron_bottom_angle");
         BlockModelBuilder bottomModel = getModel("cauldron_bottom", "block/cauldron_bottom");
         MultiPartBlockStateBuilder builder = getMultipartBuilder(BlockRegistry.CAULDRON.get());
 
         builder
-                .part() // down connected, add bottom
+                .part()
                 .   modelFile(bottomModel).addModel()
                 .   condition(CrossConnectedBlock.DOWN, false)
                 .end();

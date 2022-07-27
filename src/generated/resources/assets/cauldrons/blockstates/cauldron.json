@@ -18,7 +18,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": 90
       },
       "when": {
@@ -29,7 +29,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column"
+        "model": "cauldrons:block/cauldron_bottom_angle"
       },
       "when": {
         "north": "true",
@@ -39,7 +39,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": 90
       },
       "when": {
@@ -48,7 +48,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column"
+        "model": "cauldrons:block/cauldron_bottom_angle"
       },
       "when": {
         "north": "false"
@@ -65,7 +65,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": -90
       },
       "when": {
@@ -76,7 +76,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": 180
       },
       "when": {
@@ -87,7 +87,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": -90
       },
       "when": {
@@ -96,7 +96,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": 180
       },
       "when": {
@@ -114,7 +114,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column"
+        "model": "cauldrons:block/cauldron_bottom_angle"
       },
       "when": {
         "north": "true",
@@ -124,7 +124,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": -90
       },
       "when": {
@@ -135,7 +135,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column"
+        "model": "cauldrons:block/cauldron_bottom_angle"
       },
       "when": {
         "west": "false"
@@ -143,7 +143,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": -90
       },
       "when": {
@@ -161,7 +161,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": -180
       },
       "when": {
@@ -172,7 +172,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": 90
       },
       "when": {
@@ -183,7 +183,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": -180
       },
       "when": {
@@ -192,7 +192,7 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_column",
+        "model": "cauldrons:block/cauldron_bottom_angle",
         "y": 90
       },
       "when": {
