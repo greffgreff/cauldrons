@@ -50,9 +50,9 @@ public abstract class CrossConnectedBlock extends Block {
         BlockState blockState = Objects.requireNonNull(super.getStateForPlacement(context));
         if (context.canPlace()) {
             for (Direction direction : Direction.values()) {
-                blockState = updateWithAdjacentPair(blockState, targetPos, direction, level);
+                blockState = updateWithAdjacentPair(blockState, targetPos, direction, level, true);
                 if (direction != Direction.UP && direction != Direction.DOWN) {
-                    blockState = updateWithDiagonalPair(blockState, targetPos, direction, level);
+                    blockState = updateWithDiagonalPair(blockState, targetPos, direction, level, true);
                 }
             }
         }
@@ -62,26 +62,26 @@ public abstract class CrossConnectedBlock extends Block {
     @Override
     public void destroy(@NotNull LevelAccessor level, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         for (Direction direction : Direction.values()) {
-            blockState = updateWithAdjacentPair(blockState, blockPos, direction, level);
+            blockState = updateWithAdjacentPair(blockState, blockPos, direction, level, false);
             if (direction != Direction.UP && direction != Direction.DOWN) {
-                blockState = updateWithDiagonalPair(blockState, blockPos, direction, level);
+                blockState = updateWithDiagonalPair(blockState, blockPos, direction, level, false);
             }
         }
     }
 
-    private static BlockState updateWithAdjacentPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level) {
+    private static BlockState updateWithAdjacentPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level, boolean value) {
         BlockPos adjacentPos = targetPos.relative(direction);
         BlockState adjacentBlockState = level.getBlockState(adjacentPos);
         if (adjacentBlockState.getBlock() instanceof CrossConnectedBlock) {
             BooleanProperty property = getPropertyFromDirection(direction);
             BooleanProperty otherProperty = getOppositeProperty(property);
-            blockState = blockState.setValue(property, true);
-            level.setBlock(adjacentPos, adjacentBlockState.setValue(otherProperty, true), 3);
+            blockState = blockState.setValue(property, value);
+            level.setBlock(adjacentPos, adjacentBlockState.setValue(otherProperty, value), 3);
         }
         return blockState;
     }
 
-    private static BlockState updateWithDiagonalPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level) {
+    private static BlockState updateWithDiagonalPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level, boolean value) {
         BlockPos adjacentPos = targetPos.relative(direction);
         Direction diagonalDirection = direction.getClockWise();
         BlockPos diagonalPos = adjacentPos.relative(diagonalDirection);
@@ -89,8 +89,8 @@ public abstract class CrossConnectedBlock extends Block {
         if (diagonalBlockState.getBlock() instanceof CrossConnectedBlock) {
             BooleanProperty property = getAnglePropertyFromDirections(direction, diagonalDirection);
             BooleanProperty otherProperty = getOppositeProperty(property);
-            blockState = blockState.setValue(property, true);
-            level.setBlock(diagonalPos, diagonalBlockState.setValue(otherProperty, true), 3);
+            blockState = blockState.setValue(property, value);
+            level.setBlock(diagonalPos, diagonalBlockState.setValue(otherProperty, value), 3);
         }
         return blockState;
     }
