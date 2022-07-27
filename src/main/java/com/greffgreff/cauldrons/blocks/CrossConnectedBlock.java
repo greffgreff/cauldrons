@@ -73,8 +73,8 @@ public abstract class CrossConnectedBlock extends Block {
         BlockPos adjacentPos = targetPos.relative(direction);
         BlockState adjacentBlockState = level.getBlockState(adjacentPos);
         if (adjacentBlockState.getBlock() instanceof CrossConnectedBlock) {
-            BooleanProperty property = getPropertyFromDirection(direction);
-            BooleanProperty otherProperty = getOppositeProperty(property);
+            BooleanProperty property = getProperty(direction);
+            BooleanProperty otherProperty = getOpposite(property);
             blockState = blockState.setValue(property, value);
             level.setBlock(adjacentPos, adjacentBlockState.setValue(otherProperty, value), 3);
         }
@@ -87,8 +87,8 @@ public abstract class CrossConnectedBlock extends Block {
         BlockPos diagonalPos = adjacentPos.relative(diagonalDirection);
         BlockState diagonalBlockState = level.getBlockState(diagonalPos);
         if (diagonalBlockState.getBlock() instanceof CrossConnectedBlock) {
-            BooleanProperty property = getAnglePropertyFromDirections(direction, diagonalDirection);
-            BooleanProperty otherProperty = getOppositeProperty(property);
+            BooleanProperty property = getAngleProperty(direction, diagonalDirection);
+            BooleanProperty otherProperty = getOpposite(property);
             blockState = blockState.setValue(property, value);
             level.setBlock(diagonalPos, diagonalBlockState.setValue(otherProperty, value), 3);
         }
@@ -100,7 +100,7 @@ public abstract class CrossConnectedBlock extends Block {
         builder.add(SOUTH, EAST, WEST, NORTH, UP, DOWN, NORTH_WEST, NORTH_EAST, SOUTH_EAST, SOUTH_WEST);
     }
 
-    public static BooleanProperty getPropertyFromDirection(Direction direction) {
+    public static BooleanProperty getProperty(Direction direction) {
         return switch (direction) {
             case DOWN -> DOWN;
             case UP -> UP;
@@ -111,7 +111,7 @@ public abstract class CrossConnectedBlock extends Block {
         };
     }
 
-    public static BooleanProperty getAnglePropertyFromDirections(Direction direction1, Direction direction2) {
+    public static BooleanProperty getAngleProperty(Direction direction1, Direction direction2) {
         List<Direction> directions = Arrays.asList(direction1, direction2);
         if (directions.contains(Direction.NORTH) && directions.contains(Direction.EAST)) {
             return NORTH_EAST;
@@ -125,7 +125,11 @@ public abstract class CrossConnectedBlock extends Block {
         return null;
     }
 
-    public static BooleanProperty getOppositeProperty(BooleanProperty property) {
+    public static BooleanProperty getOpposite(Direction direction) {
+        return getOpposite(getProperty(direction));
+    }
+
+    public static BooleanProperty getOpposite(BooleanProperty property) {
         if (property == CrossConnectedBlock.DOWN) {
             return CrossConnectedBlock.UP;
         } else if (property == CrossConnectedBlock.UP) {
@@ -149,4 +153,5 @@ public abstract class CrossConnectedBlock extends Block {
         }
         return null;
     }
+
 }
