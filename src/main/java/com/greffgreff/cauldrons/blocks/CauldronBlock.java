@@ -49,6 +49,7 @@ public class CauldronBlock extends CrossConnectedBlock {
             for (Direction direction : DirectionalUtil.getHorizontalDirections()) {
                 if (!state.getValue(getProperty(direction))) {
                     shape = Shapes.join(shape, getSideByDirection(direction), BooleanOp.OR);
+                    // FIXME - fix angle hit box
                     if (!state.getValue(getAngleProperty(direction, direction.getClockWise()))) {
                         shape = Shapes.join(shape, getAngleByDirection(direction), BooleanOp.OR);
                     }

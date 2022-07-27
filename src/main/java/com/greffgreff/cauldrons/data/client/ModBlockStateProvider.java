@@ -43,6 +43,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         for (Direction direction: DirectionalUtil.getHorizontalDirections()) {
             Pair<Direction, Direction> adjacentSides = getAdjacentSides(direction);
 
+            // TODO - make use of Direction::toYRot
             builder
                     .part()
                     .   modelFile(sideModel).rotationY(getRelativeRotation(direction)).addModel()
