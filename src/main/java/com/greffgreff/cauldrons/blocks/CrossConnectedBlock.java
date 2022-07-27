@@ -69,10 +69,10 @@ public abstract class CrossConnectedBlock extends Block {
         }
     }
 
-    private static BlockState updateWithAdjacentPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level, boolean value) {
+    private BlockState updateWithAdjacentPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level, boolean value) {
         BlockPos adjacentPos = targetPos.relative(direction);
         BlockState adjacentBlockState = level.getBlockState(adjacentPos);
-        if (adjacentBlockState.getBlock() instanceof CrossConnectedBlock) {
+        if (adjacentBlockState.getBlock() instanceof CrossConnectedBlock && canConnect(adjacentBlockState)) {
             BooleanProperty property = getProperty(direction);
             BooleanProperty otherProperty = getOpposite(property);
             blockState = blockState.setValue(property, value);
@@ -81,12 +81,12 @@ public abstract class CrossConnectedBlock extends Block {
         return blockState;
     }
 
-    private static BlockState updateWithDiagonalPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level, boolean value) {
+    private BlockState updateWithDiagonalPair(BlockState blockState, BlockPos targetPos, Direction direction, LevelAccessor level, boolean value) {
         BlockPos adjacentPos = targetPos.relative(direction);
         Direction diagonalDirection = direction.getClockWise();
         BlockPos diagonalPos = adjacentPos.relative(diagonalDirection);
         BlockState diagonalBlockState = level.getBlockState(diagonalPos);
-        if (diagonalBlockState.getBlock() instanceof CrossConnectedBlock) {
+        if (diagonalBlockState.getBlock() instanceof CrossConnectedBlock && canConnect(diagonalBlockState)) {
             BooleanProperty property = getAngleProperty(direction, diagonalDirection);
             BooleanProperty otherProperty = getOpposite(property);
             blockState = blockState.setValue(property, value);
@@ -94,6 +94,8 @@ public abstract class CrossConnectedBlock extends Block {
         }
         return blockState;
     }
+
+    protected abstract boolean canConnect(BlockState blockState);
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -125,10 +127,6 @@ public abstract class CrossConnectedBlock extends Block {
         return null;
     }
 
-    public static BooleanProperty getOpposite(Direction direction) {
-        return getOpposite(getProperty(direction));
-    }
-
     public static BooleanProperty getOpposite(BooleanProperty property) {
         if (property == CrossConnectedBlock.DOWN) {
             return CrossConnectedBlock.UP;
@@ -153,5 +151,4 @@ public abstract class CrossConnectedBlock extends Block {
         }
         return null;
     }
-
 }

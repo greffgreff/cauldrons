@@ -23,6 +23,11 @@ public class CauldronBlock extends CrossConnectedBlock {
         super(BlockBehaviour.Properties.of(Material.STONE));
     }
 
+    @Override
+    protected boolean canConnect(BlockState blockState) {
+        return blockState.getBlock() instanceof CauldronBlock;
+    }
+
 //    @Override
 //    public @NotNull VoxelShape getShape(@NotNull BlockState p_151964_, @NotNull BlockGetter p_151965_, @NotNull BlockPos p_151966_, @NotNull CollisionContext p_151967_) {
 //        return SHAPE;
