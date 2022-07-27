@@ -7,12 +7,16 @@ import com.greffgreff.cauldrons.utils.DirectionalUtil;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import static com.greffgreff.cauldrons.blocks.CrossConnectedBlock.*;
+import static com.greffgreff.cauldrons.utils.DirectionalUtil.getAdjacentSides;
+import static com.greffgreff.cauldrons.utils.DirectionalUtil.getRelativeRotation;
+
+@SuppressWarnings("ConstantConditions")
 public class ModBlockStateProvider extends BlockStateProvider {
 
     public ModBlockStateProvider(DataGenerator generator, ExistingFileHelper exFileHelper) {
@@ -33,28 +37,32 @@ public class ModBlockStateProvider extends BlockStateProvider {
         builder
                 .part() // down connected, add bottom
                 .   modelFile(bottomModel).addModel()
-                .   condition(CrossConnectedBlock.DOWNWARDS_CONNECTED, false)
+                .   condition(CrossConnectedBlock.DOWN, false)
                 .end();
 
         for (Direction direction: DirectionalUtil.getHorizontalDirections()) {
-            Pair<Direction, Direction> adjacentSides = DirectionalUtil.getAdjacentSidesByDirection(direction);
-            BooleanProperty side = CrossConnectedBlock.getPropertyFromDirection(direction);
-            BooleanProperty leftSide = CrossConnectedBlock.getPropertyFromDirection(adjacentSides.left());
-            BooleanProperty rightSide = CrossConnectedBlock.getPropertyFromDirection(adjacentSides.right());
-            int sideRot = DirectionalUtil.getRelativeRotation(direction);
-            int leftSideRot = DirectionalUtil.getRelativeRotation(adjacentSides.left());
-            int rightSideRot = DirectionalUtil.getRelativeRotation(adjacentSides.right());
+            Pair<Direction, Direction> adjacentSides = getAdjacentSides(direction);
 
             builder
-                    .part() // apply side if not connected
-                    .   modelFile(sideModel).rotationY(sideRot).addModel()
-                    .   condition(side, false)
-                    .end().part() // apply angle if adjacent left side is not connected
-                    .   modelFile(angleModel).rotationY(rightSideRot).addModel()
-                    .   condition(rightSide, true)
-                    .end().part() // apply angle if adjacent right side is not connected
-                    .   modelFile(angleModel).rotationY(leftSideRot).addModel()
-                    .   condition(leftSide, false)
+                    .part()
+                    .   modelFile(sideModel).rotationY(getRelativeRotation(direction)).addModel()
+                    .   condition(getProperty(direction), false)
+                    .end().part()
+                    .   modelFile(angleModel).rotationY(getRelativeRotation(adjacentSides.right())).addModel()
+                    .   condition(getAngleProperty(adjacentSides.right(), direction), false)
+                    .   condition(getProperty(direction), true)
+                    .   condition(getProperty(adjacentSides.right()), true)
+                    .end().part()
+                    .   modelFile(angleModel).rotationY(getRelativeRotation(adjacentSides.left()) + 90).addModel()
+                    .   condition(getAngleProperty(adjacentSides.left(), direction), false)
+                    .   condition(getProperty(direction), true)
+                    .   condition(getProperty(adjacentSides.left()), true)
+                    .end().part()
+                    .   modelFile(angleModel).rotationY(getRelativeRotation(adjacentSides.right())).addModel()
+                    .   condition(getProperty(direction), false)
+                    .end().part()
+                    .   modelFile(angleModel).rotationY(getRelativeRotation(adjacentSides.left()) + 90).addModel()
+                    .   condition(getProperty(direction), false)
                     .end();
         }
     }
