@@ -92,9 +92,6 @@ public abstract class CrossConnectedBlock extends Block {
         if (diagonalBlockState.getBlock() instanceof CrossConnectedBlock) {
             BooleanProperty property = getAnglePropertyFromDirections(direction, diagonalDirection);
             BooleanProperty otherProperty = getOppositeProperty(property);
-            Console.debug("Directions " + direction + " " + diagonalDirection);
-            Console.debug("Property " + property);
-
             blockState = blockState.setValue(property, true);
             level.setBlock(diagonalPos, diagonalBlockState.setValue(otherProperty, true), 3);
         }
