@@ -1,19 +1,29 @@
 package com.greffgreff.cauldrons.blocks;
 
+import com.greffgreff.cauldrons.blockEntities.CauldronBlockEntity;
+import com.greffgreff.cauldrons.utils.Console;
 import com.greffgreff.cauldrons.utils.DirectionalUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +80,17 @@ public class CauldronBlock extends CrossConnectedBlock {
         builder.add(SOUTH, EAST, WEST, NORTH, UP, DOWN, NORTH_WEST, NORTH_EAST, SOUTH_EAST, SOUTH_WEST, FILL_LEVEL);
     }
 
+    @Override
+    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interaction, BlockHitResult hitResult) {
+        BlockEntity entity = level.getBlockEntity(blockPos);
+
+        if (entity instanceof CauldronBlockEntity cauldronEntity) {
+            Console.debug(cauldronEntity.NUMBER);
+        }
+
+        return super.use(blockState, level, blockPos, player, interaction, hitResult);
+    }
+
     private VoxelShape getSideByDirection(Direction direction) {
         return switch (direction) {
             case SOUTH -> SOUTH_SIDE;
@@ -88,5 +109,10 @@ public class CauldronBlock extends CrossConnectedBlock {
             case EAST -> EAST_ANGLE;
             case UP, DOWN -> null;
         };
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new CauldronBlockEntity(blockPos, blockState);
     }
 }

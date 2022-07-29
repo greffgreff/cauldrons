@@ -11,6 +11,7 @@ import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.Nullable;
 
 public class CauldronBlockEntity extends BlockEntity {
+    public static int NUMBER = 1;
 
     public CauldronBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityRegistry.CAULDRON_BLOCK_ENTITY.get(), blockPos, blockState);
