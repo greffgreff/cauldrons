@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 public final class BlockEntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Main.MOD_ID);
 
-//    public static final RegistryObject<BlockEntityType<CauldronBlockEntity>> CAULDRON_BLOCK_ENTITY = register("cauldron_block_entity", CauldronBlockEntity::new, BlockRegistry.CAULDRON.get());
+    public static final RegistryObject<BlockEntityType<CauldronBlockEntity>> CAULDRON_BLOCK_ENTITY = register("cauldron_block_entity", CauldronBlockEntity::new, BlockRegistry.CAULDRON.get());
 
     public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, BlockEntityType.BlockEntitySupplier<T> blockEntity, Block ...blocks) {
         return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of(blockEntity, blocks).build(null));
