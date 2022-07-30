@@ -9,16 +9,17 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+@SuppressWarnings("NullableProblems")
 public class PyramidBlock extends Block {
-//    private static final VoxelShape SHAPE = Shapes;
+    private static final VoxelShape SHAPE = Block.box(0,0,0, 16, 8, 16);
 
     public PyramidBlock() {
-        super(Properties.of(Material.STONE));
+        super(Properties.of(Material.STONE).noOcclusion());
     }
 
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
-        return super.getShape(p_60555_, p_60556_, p_60557_, p_60558_);
+        return SHAPE;
     }
 
 }
