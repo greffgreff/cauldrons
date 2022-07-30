@@ -1,4 +1,8 @@
 {
   "item.cauldrons.cauldrons": "Cauldron",
-  "block.cauldrons.cauldron": "Cauldron"
+  "block.cauldrons.cauldron": "Cauldron",
+  "item.cauldrons.pyramid": "Pyramid",
+  "block.cauldrons.pyramid": "Pyramid",
+  "item.cauldrons.big_berta": "Big Berta",
+  "block.cauldrons.big_berta": "Big Berta"
 }

@@ -1,4 +1,4 @@
 {
-  "loader": "forge:obj",
+  "loader": "cauldrons:obj",
   "model": "cauldrons:models/block/big_berta.obj"
 }
