@@ -1,6 +1,7 @@
 package com.greffgreff.cauldrons.registries;
 
 import com.greffgreff.cauldrons.Main;
+import com.greffgreff.cauldrons.blocks.BigBertaBlock;
 import com.greffgreff.cauldrons.blocks.CauldronBlock;
 import com.greffgreff.cauldrons.blocks.PyramidBlock;
 import net.minecraft.world.item.BlockItem;
@@ -18,6 +19,7 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> CAULDRON = register("cauldron", CauldronBlock::new);
     public static final RegistryObject<Block> PYRAMID = register("pyramid", PyramidBlock::new);
+    public static final RegistryObject<Block> BIG_BERTA = register("big_berta", BigBertaBlock::new);
 
     public static <B extends Block> RegistryObject<B> register(String name, Supplier<B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
