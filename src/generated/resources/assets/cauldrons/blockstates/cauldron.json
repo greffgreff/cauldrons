@@ -29,7 +29,8 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_angle"
+        "model": "cauldrons:block/cauldron_bottom_angle",
+        "y": 360
       },
       "when": {
         "north": "true",
@@ -48,7 +49,8 @@
     },
     {
       "apply": {
-        "model": "cauldrons:block/cauldron_bottom_angle"
+        "model": "cauldrons:block/cauldron_bottom_angle",
+        "y": 360
       },
       "when": {
         "north": "false"
@@ -57,7 +59,7 @@
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_side",
-        "y": -180
+        "y": 180
       },
       "when": {
         "south": "false"
@@ -66,7 +68,7 @@
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_angle",
-        "y": -90
+        "y": 270
       },
       "when": {
         "south": "true",
@@ -88,7 +90,7 @@
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_angle",
-        "y": -90
+        "y": 270
       },
       "when": {
         "south": "false"
@@ -106,7 +108,7 @@
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_side",
-        "y": -90
+        "y": 270
       },
       "when": {
         "west": "false"
@@ -125,7 +127,7 @@
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_angle",
-        "y": -90
+        "y": 270
       },
       "when": {
         "south": "true",
@@ -144,7 +146,7 @@
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_angle",
-        "y": -90
+        "y": 270
       },
       "when": {
         "west": "false"
@@ -162,7 +164,7 @@
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_angle",
-        "y": -180
+        "y": 180
       },
       "when": {
         "east": "true",
@@ -184,7 +186,7 @@
     {
       "apply": {
         "model": "cauldrons:block/cauldron_bottom_angle",
-        "y": -180
+        "y": 180
       },
       "when": {
         "east": "false"
