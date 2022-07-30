@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 @SuppressWarnings({"NullableProblems", "ConstantConditions"})
-public abstract class CrossConnectedBlock extends BaseEntityBlock {
+public abstract class CrossConnectedBlock extends Block {
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
     public static final BooleanProperty WEST = BlockStateProperties.WEST;

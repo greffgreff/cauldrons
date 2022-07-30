@@ -50,7 +50,10 @@ public class CauldronBlock extends CrossConnectedBlock {
             if (!state.getValue(DOWN)) {
                 shape = Shapes.join(shape, BOTTOM, BooleanOp.OR);
             }
-            for (Direction direction : DirectionalUtil.getHorizontalDirections()) {
+            for (Direction direction : Direction.values()) {
+                if (direction == Direction.DOWN || direction == Direction.UP) {
+                    continue;
+                }
                 if (!state.getValue(getProperty(direction))) {
                     shape = Shapes.join(shape, getSideByDirection(direction), BooleanOp.OR);
                     shape = Shapes.join(shape, getAngleByDirection(direction), BooleanOp.OR);
@@ -80,16 +83,16 @@ public class CauldronBlock extends CrossConnectedBlock {
         builder.add(SOUTH, EAST, WEST, NORTH, UP, DOWN, NORTH_WEST, NORTH_EAST, SOUTH_EAST, SOUTH_WEST, FILL_LEVEL);
     }
 
-    @Override
-    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interaction, BlockHitResult hitResult) {
-        BlockEntity entity = level.getBlockEntity(blockPos);
-
-        if (entity instanceof CauldronBlockEntity cauldronEntity) {
-            Console.debug(cauldronEntity.NUMBER);
-        }
-
-        return super.use(blockState, level, blockPos, player, interaction, hitResult);
-    }
+//    @Override
+//    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interaction, BlockHitResult hitResult) {
+//        BlockEntity entity = level.getBlockEntity(blockPos);
+//
+//        if (entity instanceof CauldronBlockEntity cauldronEntity) {
+////            Console.debug(cauldronEntity.NUMBER);
+//        }
+//
+//        return super.use(blockState, level, blockPos, player, interaction, hitResult);
+//    }
 
     private VoxelShape getSideByDirection(Direction direction) {
         return switch (direction) {
@@ -111,8 +114,9 @@ public class CauldronBlock extends CrossConnectedBlock {
         };
     }
 
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new CauldronBlockEntity(blockPos, blockState);
-    }
+//    @Override
+//    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+//        Console.debug(blockState);
+//        return new CauldronBlockEntity(blockPos, blockState);
+//    }
 }
