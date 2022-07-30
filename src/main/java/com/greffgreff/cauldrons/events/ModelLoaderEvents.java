@@ -12,6 +12,6 @@ public class ModelLoaderEvents {
 
 	@SubscribeEvent
 	public static void registerModelLoaderEvent(final ModelEvent.RegisterGeometryLoaders event) {
-		event.register(OBJLoader.LOADER_NAME, OBJLoader.INSTANCE);
+		event.register("obj", OBJLoader.INSTANCE);
 	}
 }
